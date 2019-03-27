@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import socket
 import time
+import multiprocessing as mp
 
 
 server = "irc.tripsit.me"
@@ -8,10 +9,6 @@ nick = "sertroid"
 channel ="##testing"
 
 irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
-
-input_file = open("pubmed_output.txt", "r")
-
-test_send = input_file.readlines()
 
 irc.connect((server, 6667))
 print("Connecting to " + server)
@@ -35,14 +32,26 @@ time.sleep(10)
 irc.send(bytes("JOIN "+channel+" \n", "UTF-8"))
 print("Joining channel")
 
-while True:
-    text = irc.recv(2040)
-    text = text.decode("UTF-8")
-    print(text)
+def irc_text():
+    while True:
+        text = irc.recv(2040)
+        text = text.decode("UTF-8")
+        print(text)
 
-    irc.send(bytes("PRIVMSG ##testing :{}".format(test_send), "utf-8"))
-    time.sleep(1)
+        if text.find("PING") != -1:
+            irc.send(bytes("PONG \n", "utf-8"))
+            #print("PONG")
 
-    if text.find("PING") != -1:
-        irc.send(bytes("PONG \n", "utf-8"))
-        print("PONG")
+def output():
+    with open('pubmed_output.txt') as f:
+            for line in f:
+                irc.send(bytes("PRIVMSG ##testing :" + line, "utf-8"))
+                time.sleep(1)
+
+def main():
+    p1 = mp.Process(target = irc_text)
+    p2 = mp.Process(target = output)
+    p1.start()
+    p2.start()
+
+main()
