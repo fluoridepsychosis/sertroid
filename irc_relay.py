@@ -52,11 +52,7 @@ def output():
                 irc.send(bytes("PRIVMSG ##testing :" + line, "utf-8"))
                 time.sleep(1)
 
-            irc.send(bytes(""))
-
-            os._exit(0)
-
-             
+            os._exit(0)        
 
 def main():
 
