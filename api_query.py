@@ -5,7 +5,7 @@ import sys
 import json
 import time
 
-sys.stdout = open('pubmed_output.txt','wt') # this script will output to a file for further processing
+sys.stdout = open('/home/user/sertroid/pubmed_output.txt','wt') # this script will output to a file for further processing
 
 response = requests.get("http://tripbot.tripsit.me/api/tripsit/getAllDrugNames") #getting druglist from tripsit api
 
