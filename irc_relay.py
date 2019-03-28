@@ -25,7 +25,7 @@ print("Sent USER and NICK")
 print("Waiting 15 seconds")
 time.sleep(15)
 
-irc.send(bytes("PRIVMSG nickserv :identify sertroid ************ \n", "UTF-8"))
+irc.send(bytes("PRIVMSG nickserv :identify sertroid XZly01OALz4tfVu4eBfM \n", "UTF-8"))
 print("Identifying with nickserv")
 
 print("Waiting 10 seconds")
@@ -51,7 +51,12 @@ def output():
             
                 irc.send(bytes("PRIVMSG ##testing :" + line, "utf-8"))
                 time.sleep(1)
-            
+
+            irc.send(bytes(""))
+
+            os._exit(0)
+
+             
 
 def main():
 
