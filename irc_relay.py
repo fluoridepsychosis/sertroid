@@ -8,7 +8,7 @@ import os
 
 server = "irc.tripsit.me"
 nick = "sertroid"
-channel ="##testing"
+channel ="##paperflood"
 
 irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
 
@@ -49,7 +49,7 @@ def output():
     with open('pubmed_output.txt') as f:
             for line in f:
             
-                irc.send(bytes("PRIVMSG ##testing :" + line, "utf-8"))
+                irc.send(bytes("PRIVMSG "+ channel +" :" + line, "utf-8"))
                 time.sleep(1)
 
             os._exit(0)        
