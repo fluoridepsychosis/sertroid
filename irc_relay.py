@@ -45,6 +45,7 @@ def irc_text():
 def output():
     with open('pubmed_output.txt') as f:
             for line in f:
+            
                 irc.send(bytes("PRIVMSG ##testing :" + line, "utf-8"))
                 time.sleep(1)
 
