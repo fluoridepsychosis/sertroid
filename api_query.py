@@ -50,13 +50,12 @@ for value in data:
 
         time.sleep(0.334) # to avoid getting b& from pubmed for spamming them with requests (pubmed allows 3 url requests per second)
 
-        x = x + 1
-
+        #x = x + 1
         #print(x)  # counts number of iterations and prints drug name so i know it is working while testing lol
         #print(value)
 
-        if len(big_list) == 10:  # limits loop to 10 iterations for quickly testing
-            break
+        #if len(big_list) == 10:  # limits loop to 10 iterations for quickly testing
+        #    break
 
 flat_list = []
     
