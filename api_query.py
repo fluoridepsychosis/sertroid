@@ -54,8 +54,8 @@ for value in data:
         #print(x)  # counts number of iterations and prints drug name so i know it is working while testing lol
         #print(value)
 
-        #if len(big_list) == 10:  # limits loop to 10 iterations for quickly testing
-        #    break
+        if len(big_list) == 10:  # limits loop to 10 iterations for quickly testing
+            break
 
 flat_list = []
     

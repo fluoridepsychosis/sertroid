@@ -2,6 +2,7 @@
 import socket
 import time
 import multiprocessing as mp
+import sys
 
 
 server = "irc.tripsit.me"
@@ -49,10 +50,15 @@ def output():
                 irc.send(bytes("PRIVMSG ##testing :" + line, "utf-8"))
                 time.sleep(1)
 
+            
+
 def main():
     p1 = mp.Process(target = irc_text)
     p2 = mp.Process(target = output)
     p1.start()
     p2.start()
+
+    irc.send(bytes("Posted {} papers, see you tomorrow!".format(len(f))))
+    sys.exit()
 
 main()
