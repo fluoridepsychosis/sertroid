@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 import socket
 import time
-import multiprocessing as mp
+import threading 
 import sys
+import os
 
 
 server = "irc.tripsit.me"
@@ -33,6 +34,7 @@ time.sleep(10)
 irc.send(bytes("JOIN "+channel+" \n", "UTF-8"))
 print("Joining channel")
 
+
 def irc_text():
     while True:
         text = irc.recv(2040)
@@ -49,16 +51,13 @@ def output():
             
                 irc.send(bytes("PRIVMSG ##testing :" + line, "utf-8"))
                 time.sleep(1)
-
             
 
 def main():
-    p1 = mp.Process(target = irc_text)
-    p2 = mp.Process(target = output)
-    p1.start()
-    p2.start()
 
-    irc.send(bytes("Posted {} papers, see you tomorrow!".format(len(f))))
-    sys.exit()
+    t1 = threading.Thread(target = irc_text)
+    t2 = threading.Thread(target = output)
+    t1.start()
+    t2.start()
 
 main()
