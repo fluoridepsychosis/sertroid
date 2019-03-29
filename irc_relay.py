@@ -25,7 +25,7 @@ print("Sent USER and NICK")
 print("Waiting 15 seconds")
 time.sleep(15)
 
-irc.send(bytes("PRIVMSG nickserv :identify sertroid XZly01OALz4tfVu4eBfM \n", "UTF-8"))
+irc.send(bytes("PRIVMSG nickserv :identify sertroid 98B2WsVkq5eaXgWOmtJD \n", "UTF-8"))
 print("Identifying with nickserv")
 
 print("Waiting 10 seconds")
