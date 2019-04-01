@@ -5,6 +5,8 @@ import sys
 import json
 import time
 
+print('api_query.py running')
+
 sys.stdout = open('/home/user/sertroid/pubmed_output.txt','wt') # this script will output to a file for further processing
 
 response = requests.get("http://tripbot.tripsit.me/api/tripsit/getAllDrugNames") #getting druglist from tripsit api
@@ -23,8 +25,6 @@ for value in response:
 
 big_list = [] # big chonk
 
-x = 0
-
 for value in data:
 
     if value is not None:
@@ -41,20 +41,27 @@ for value in data:
 
         drugname = value
 
-        if key in parsed_json: #sometimes the json doesn't have the key we want for no reason  ¯\_(ツ)_/¯, this checks if it exists
+        
+        if key in parsed_json: # sometimes the json doesn't have the key we want for no reason  ¯\_(ツ)_/¯, this checks if it exists
 
             list_of_pmids = parsed_json["esearchresult"]["idlist"] # retrieves list of pmids from python list
+            
+            drugdict = {}
+
+            for item in list_of_pmids:
+
+                drugdict[item] = drugname             
 
         else:
             pass
+        
+        if any(drugdict) == True:
+            
+            big_list.append(drugdict) # joins all pmids into one big list
 
-        big_list.append(list_of_pmids) # joins all pmids into one big list
+        
 
         time.sleep(0.334) # to avoid getting b& from pubmed for spamming them with requests (pubmed allows 3 url requests per second)
-
-        #x = x + 1
-        #print(x)  # counts number of iterations and prints drug name so i know it is working while testing lol
-        #print(value)
 
         #if len(big_list) == 10:  # limits loop to 10 iterations for quickly testing
         #    break
@@ -108,7 +115,7 @@ for item in flat_list:
     else: 
         pass
 
-    
+print('api_query.py finished')
 
 
 
