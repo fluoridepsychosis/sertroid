@@ -13,13 +13,13 @@ response = requests.get("http://tripbot.tripsit.me/api/tripsit/getAllDrugNames")
 
 response = response.json() # parsing druglist into python list
 
-response = response['data'] 
+response = response['data'] #removing outer list
 
-response = response[0]
+response = response[0] # removing outer list
 
 data = []
 
-for value in response: 
+for value in response:      #remove none values
     if value is not None:
         data.append(value) 
 
@@ -31,7 +31,6 @@ for value in data:
 
         # sets entrez url to a drug from the druglist
         entrez_url="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&reldate=1&retmax=1000&retmode=json&term=" + value
-    
         
         entrez_response = requests.get(entrez_url) #returns json data
 
@@ -40,8 +39,7 @@ for value in data:
         key = "esearchresult"
 
         drugname = value
-
-        
+          
         if key in parsed_json: # sometimes the json doesn't have the key we want for no reason  ¯\_(ツ)_/¯, this checks if it exists
 
             list_of_pmids = parsed_json["esearchresult"]["idlist"] # retrieves list of pmids from python list
@@ -50,14 +48,12 @@ for value in data:
 
             for item in list_of_pmids:
 
-                drugdict[item] = drugname             
-
+                drugdict[item] = drugname 
+        
         else:
             pass
         
-        if any(drugdict) == True:
-            
-            big_list.append(drugdict) # joins all pmids into one big list
+        big_list.append(drugdict) # joins all pmids into one big list
 
         
 
@@ -66,32 +62,33 @@ for value in data:
         #if len(big_list) == 10:  # limits loop to 10 iterations for quickly testing
         #    break
 
-flat_list = []
+flat_dictionary = {}
     
-for sublist in big_list:  #flattening list
-    for item in sublist:
-        flat_list.append(item)
+for dictionary in big_list:  #flattening list
+    flat_dictionary.update(dictionary)
 
-for item in flat_list:
+for key, item in flat_dictionary.items():
 
     # This loop is basically the same as the first one except it uses entrez eutils summary instead of eutils search to find info from the PMID,
     # then prints it to the output file
 
-    entrez_summary_url = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=" + item
+    entrez_summary_url = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=" + key
 
     entrez_summary_response = requests.get(entrez_summary_url)
 
     summary_parsed_json = entrez_summary_response.json()
 
-    pmid = str(item)
+    pmid = str(key)
 
     pmid_key = "{}".format(pmid)
 
     pubmed_url = "https://www.ncbi.nlm.nih.gov/pubmed/" + pmid
 
-    key = "result"
+    list_key = "result"
 
-    if key in summary_parsed_json:
+    drugname = item
+
+    if list_key in summary_parsed_json:
 
         title = summary_parsed_json["result"][pmid_key]["title"]
 
