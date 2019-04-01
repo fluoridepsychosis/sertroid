@@ -112,7 +112,7 @@ for key, item in flat_dictionary.items():
     else: 
         pass
 
-print('api_query.py finished')
+
 
 
 
