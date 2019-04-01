@@ -39,6 +39,8 @@ for value in data:
 
         key = "esearchresult"
 
+        drugname = value
+
         if key in parsed_json: #sometimes the json doesn't have the key we want for no reason  ¯\_(ツ)_/¯, this checks if it exists
 
             list_of_pmids = parsed_json["esearchresult"]["idlist"] # retrieves list of pmids from python list
@@ -83,9 +85,25 @@ for item in flat_list:
     key = "result"
 
     if key in summary_parsed_json:
+
+        title = summary_parsed_json["result"][pmid_key]["title"]
+
+        article_ids = summary_parsed_json["result"][pmid_key]["articleids"]
+
+        matched_article_id = None
+
+        for article_id in article_ids:
+    
+            if article_id['idtype'] == "doi":
+
+                matched_article_id = article_id
+
+                doi = "https://doi.org/" + matched_article_id['value']
+
+
         
         # Prints paper title, PMID and pubmed URL in a human-readable form
-        print("[Pubmed] " + summary_parsed_json["result"][pmid_key]["title"] + " PMID: " + pmid + " URL: {}".format(pubmed_url))
+        print("[Pubmed] " + "[{}] ".format(drugname) + title + " URL: " + pubmed_url  + " DOI: " + doi)
 
     else: 
         pass
