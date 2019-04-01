@@ -12,34 +12,31 @@ channel ="##paperflood"
 
 irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
 
+print("irc_relay.py now running")
+
 irc.connect((server, 6667))
 print("Connecting to " + server)
 
-print("Waiting 15 seconds")
 time.sleep(15)
 
 irc.send(bytes("USER "+nick+" * * *:user \n", "UTF-8"))
 irc.send(bytes("NICK "+nick+" \n", "UTF-8"))
-print("Sent USER and NICK")
 
-print("Waiting 15 seconds")
 time.sleep(15)
 
 irc.send(bytes("PRIVMSG nickserv :identify sertroid 98B2WsVkq5eaXgWOmtJD \n", "UTF-8"))
-print("Identifying with nickserv")
 
-print("Waiting 10 seconds")
 time.sleep(10)
 
 irc.send(bytes("JOIN "+channel+" \n", "UTF-8"))
-print("Joining channel")
 
+print("Connected to IRC, beginning flood")
 
 def irc_text():
     while True:
         text = irc.recv(2040)
         text = text.decode("UTF-8")
-        print(text)
+        
 
         if text.find("PING") != -1:
             irc.send(bytes("PONG \n", "utf-8"))
@@ -52,6 +49,7 @@ def output():
                 irc.send(bytes("PRIVMSG "+ channel +" :" + line, "utf-8"))
                 time.sleep(1)
 
+            print("Flood complete, exiting")
             os._exit(0)        
 
 def main():
