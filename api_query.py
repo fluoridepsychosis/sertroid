@@ -4,6 +4,7 @@ import requests
 import sys
 import json
 import time
+import collections
 
 print('api_query.py running')
 
@@ -44,7 +45,7 @@ for value in data:
 
             list_of_pmids = parsed_json["esearchresult"]["idlist"] # retrieves list of pmids from python list
             
-            drugdict = {}
+            drugdict = collections.OrderedDict()
 
             for item in list_of_pmids:
 
@@ -63,6 +64,8 @@ for value in data:
         #    break
 
 flat_dictionary = {}
+
+print(flat_dictionary)
     
 for dictionary in big_list:  #flattening list
     flat_dictionary.update(dictionary)
