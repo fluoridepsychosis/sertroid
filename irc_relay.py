@@ -4,7 +4,9 @@ import time
 import threading
 import sys
 import os
+import re
 
+html_tag_matcher = re.compile('&lt;.*?&gt;')
 
 server = "irc.tripsit.me"
 nick = "sertroid"
@@ -46,7 +48,7 @@ def output():
     with open('/home/user/sertroid/pubmed_output.txt') as f:
             for line in f:
 
-                irc.send(bytes("PRIVMSG "+ channel +" :" + line, "utf-8"))
+                irc.send(bytes("PRIVMSG "+ channel +" :" + html_tag_matcher.sub('',line), "utf-8"))
                 time.sleep(1)
 
             print("Flood complete, exiting")
