@@ -22,7 +22,7 @@ data = []
 
 for value in response:      #remove none values
     if value is not None:
-        data.append(value) 
+        data.append(value)
 
 big_list = [] # big chonk
 
@@ -32,7 +32,7 @@ for value in data:
 
         # sets entrez url to a drug from the druglist
         entrez_url="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&reldate=1&retmax=1000&retmode=json&term=" + value
-        
+
         entrez_response = requests.get(entrez_url) #returns json data
 
         parsed_json = entrez_response.json() # parses json data into python list
@@ -40,23 +40,23 @@ for value in data:
         key = "esearchresult"
 
         drugname = value
-          
+
         if key in parsed_json: # sometimes the json doesn't have the key we want for no reason  ¯\_(ツ)_/¯, this checks if it exists
 
             list_of_pmids = parsed_json["esearchresult"]["idlist"] # retrieves list of pmids from python list
-            
+
             drugdict = collections.OrderedDict()
 
             for item in list_of_pmids:
 
-                drugdict[item] = drugname 
-        
+                drugdict[item] = drugname
+
         else:
             pass
-        
+
         big_list.append(drugdict) # joins all pmids into one big list
 
-        
+
 
         time.sleep(0.334) # to avoid getting b& from pubmed for spamming them with requests (pubmed allows 3 url requests per second)
 
@@ -66,7 +66,7 @@ for value in data:
 flat_dictionary = {}
 
 print(flat_dictionary)
-    
+
 for dictionary in big_list:  #flattening list
     flat_dictionary.update(dictionary)
 
@@ -100,7 +100,7 @@ for key, item in flat_dictionary.items():
         matched_article_id = None
 
         for article_id in article_ids:
-    
+
             if article_id['idtype'] == "doi":
 
                 matched_article_id = article_id
@@ -108,15 +108,9 @@ for key, item in flat_dictionary.items():
                 doi = "https://doi.org/" + matched_article_id['value']
 
 
-        
+
         # Prints paper title, PMID and pubmed URL in a human-readable form
         print("[Pubmed] " + "[{}] ".format(drugname) + title + " URL: " + pubmed_url  + " DOI: " + doi)
 
-    else: 
+    else:
         pass
-
-
-
-
-
-

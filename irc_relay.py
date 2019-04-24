@@ -1,16 +1,18 @@
 #!/usr/bin/python3
 import socket
 import time
-import threading 
+import threading
 import sys
 import os
+import re
 
+html_tag_matcher = re.compile('&lt;.*?&gt;')
 
 server = "irc.tripsit.me"
 nick = "sertroid"
 channel ="##paperflood"
 
-irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
+irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 print("irc_relay.py now running")
 
@@ -36,7 +38,7 @@ def irc_text():
     while True:
         text = irc.recv(2040)
         text = text.decode("UTF-8")
-        
+
 
         if text.find("PING") != -1:
             irc.send(bytes("PONG \n", "utf-8"))
@@ -45,12 +47,12 @@ def irc_text():
 def output():
     with open('/home/user/sertroid/pubmed_output.txt') as f:
             for line in f:
-            
-                irc.send(bytes("PRIVMSG "+ channel +" :" + line, "utf-8"))
+
+                irc.send(bytes("PRIVMSG "+ channel +" :" + html_tag_matcher.sub('',line), "utf-8"))
                 time.sleep(1)
 
             print("Flood complete, exiting")
-            os._exit(0)        
+            os._exit(0)
 
 def main():
 
