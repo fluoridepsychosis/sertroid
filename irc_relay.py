@@ -5,6 +5,7 @@ import threading
 import sys
 import os
 import re
+import config
 
 html_tag_matcher = re.compile('&lt;.*?&gt;')
 
@@ -26,7 +27,7 @@ irc.send(bytes("NICK "+nick+" \n", "UTF-8"))
 
 time.sleep(15)
 
-irc.send(bytes("PRIVMSG nickserv :identify sertroid 98B2WsVkq5eaXgWOmtJD \n", "UTF-8"))
+irc.send(bytes("PRIVMSG nickserv :identify sertroid "+ config.password +" \n", "UTF-8"))
 
 time.sleep(10)
 
