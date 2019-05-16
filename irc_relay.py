@@ -46,7 +46,7 @@ def irc_text():
             #print("PONG")
 
 def output():
-    with open('/home/user/sertroid/pubmed_output.txt') as f:
+    with open('pubmed_output.txt') as f:
             for line in f:
 
                 irc.send(bytes("PRIVMSG "+ channel +" :" + html_tag_matcher.sub('',line), "utf-8"))
