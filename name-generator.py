@@ -80,7 +80,7 @@ for name in synonyms:
     
     if len(name) < 4:
 
-        synonyms.remove(item)
+        synonyms.remove(name)
 
 synonyms = json.dumps(synonyms) #converting python list to json
 
