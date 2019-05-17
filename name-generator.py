@@ -76,6 +76,14 @@ while fault in synonyms:
 
     synonyms.remove(fault)
 
+
+mt45 = 'MT 45'
+
+while mt45 in synonyms:
+
+    synonyms.remove(mt45)
+
+
 for name in synonyms:
     
     if len(name) < 4:

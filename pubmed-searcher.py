@@ -18,8 +18,6 @@ for name in names:
 
     if name is not None:
 
-        print(name)
-
         # Creates entrez url from name
         entrez_url="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&reldate=1&retmax=1000&retmode=json&term=" + name
 
