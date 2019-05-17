@@ -65,7 +65,7 @@ for key, item in flat_dictionary.items():
 
     pmid_key = "{}".format(pmid)
 
-    pubmed_url = "https://www.ncbi.nlm.nih.gov/pubmed/" + pmid
+    pubmed_url = "https://www.ncbi.nlm.nih.gov/labs/pubmed/" + pmid
 
     list_key = "result"
 
