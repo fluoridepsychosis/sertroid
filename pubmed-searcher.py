@@ -47,8 +47,6 @@ for name in names:
 
 flat_dictionary = {}
 
-print(flat_dictionary)
-
 for dictionary in big_list:  #flattening list
     flat_dictionary.update(dictionary)
 
