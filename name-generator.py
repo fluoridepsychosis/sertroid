@@ -76,6 +76,12 @@ while fault in synonyms:
 
     synonyms.remove(fault)
 
+for name in synonyms:
+    
+    if len(name) < 4:
+
+        synonyms.remove(item)
+
 synonyms = json.dumps(synonyms) #converting python list to json
 
 print(synonyms)
