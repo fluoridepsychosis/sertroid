@@ -6,6 +6,7 @@ import sys
 import os
 import re
 import config
+import json
 
 html_tag_matcher = re.compile('&lt;.*?&gt;')
 
@@ -46,11 +47,23 @@ def irc_text():
             #print("PONG")
 
 def output():
-    with open('pubmed_output.txt') as f:
-            for line in f:
+    with open('pubmed_data.json') as f:
+            
+            f = json.load(f)
 
-                irc.send(bytes("PRIVMSG "+ channel +" :" + html_tag_matcher.sub('',line), "utf-8"))
+            print(f)
+
+            for dict in f:
+
+                alias = dict['alias']   
+                url = dict['url']  
+                doi = dict['doi']
+                title = dict['title']       
+            
+                irc.send(bytes("PRIVMSG " + channel + " :[Pubmed] " + "[{}] ".format(alias) + html_tag_matcher.sub('', title) + " URL: " + url  + " DOI: " + doi + " \n", 'utf-8'))
+                
                 time.sleep(1)
+
 
             print("Flood complete, exiting")
             os._exit(0)
