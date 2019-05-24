@@ -8,8 +8,6 @@ import collections
 
 names_json = open('names.json')
 
-sys.stdout = open('pubmed_output.txt','wt') # this script will output to a file for further processing
-
 names = json.load(names_json) # converting from json to python list
 
 big_list = [] # big chonk
@@ -18,9 +16,8 @@ for name in names:
 
     if name is not None:
 
-        if len(big_list) == 100:
-
-            break
+        #if len(big_list) == 100:
+        #    break
 
         # Creates entrez url from name
         entrez_url="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&reldate=1&retmax=1000&retmode=json&term=" + name

@@ -46,29 +46,23 @@ def irc_text():
             irc.send(bytes("PONG \n", "utf-8"))
             #print("PONG")
 
-""" def output():
-    with open('pubmed_output.txt') as f:
-            for line in f:
-
-                irc.send(bytes("PRIVMSG "+ channel +" :" + html_tag_matcher.sub('',line), "utf-8"))
-                time.sleep(1)
-
-            print("Flood complete, exiting")
-            os._exit(0) """
-
 def output():
     with open('pubmed_data.json') as f:
             
             f = json.load(f)
 
-            for dictionary in f:
+            print(f)
 
-                alias = f[alias]   
-                url = f[url]  
-                doi = f[doi]
-                title = f[title]       
+            for dict in f:
+
+                alias = dict['alias']   
+                url = dict['url']  
+                doi = dict['doi']
+                title = dict['title']       
             
-                print("[Pubmed] " + "[{}] ".format(alias) + title + " URL: " + pubmed_url  + " DOI: " + doi)
+                irc.send(bytes("PRIVMSG " + channel + " :[Pubmed] " + "[{}] ".format(alias) + html_tag_matcher.sub('', title) + " URL: " + url  + " DOI: " + doi + " \n", 'utf-8'))
+                
+                time.sleep(1)
 
 
             print("Flood complete, exiting")
