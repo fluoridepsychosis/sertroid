@@ -8,8 +8,6 @@ import collections
 
 names_json = open('names.json')
 
-sys.stdout = open('pubmed_output.txt','wt') # this script will output to a file for further processing
-
 names = json.load(names_json) # converting from json to python list
 
 big_list = [] # big chonk
@@ -17,6 +15,9 @@ big_list = [] # big chonk
 for name in names:
 
     if name is not None:
+
+        #if len(big_list) == 100:
+        #    break
 
         # Creates entrez url from name
         entrez_url="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&reldate=1&retmax=1000&retmode=json&term=" + name
@@ -45,10 +46,14 @@ for name in names:
 
         big_list.append(drugdict)
 
+        time.sleep(0.334) # to avoid getting b& for flood
+
 flat_dictionary = {}
 
 for dictionary in big_list:  #flattening list
     flat_dictionary.update(dictionary)
+
+data_json = []
 
 for key, item in flat_dictionary.items():
 
@@ -92,7 +97,25 @@ for key, item in flat_dictionary.items():
         # Prints paper title, PMID and pubmed URL in a human-readable form
         print("[Pubmed] " + "[{}] ".format(drugname) + title + " URL: " + pubmed_url  + " DOI: " + doi)
 
+        datadict = {
+
+            'alias':drugname,
+            'title':title,
+            'url':pubmed_url,
+            'doi':doi
+
+        }
+
+        data_json.append(datadict)
+
     else:
          pass
+
+
+data_json = json.dumps(data_json)
+
+with open("pubmed_data.json", "w") as write_file:
+
+    write_file.write(data_json)
 
 names_json.close()

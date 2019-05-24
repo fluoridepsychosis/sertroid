@@ -70,18 +70,23 @@ for name in names:
 
     #print (count)
 
+def problemalias(alias):
+
+    while alias in synonyms:
+
+        synonyms.remove(alias)
+
 fault = 'Fault'
 
-while fault in synonyms:
-
-    synonyms.remove(fault)
-
+problemalias(fault)
 
 mt45 = 'MT 45'
 
-while mt45 in synonyms:
+problemalias(mt45)
 
-    synonyms.remove(mt45)
+luminal = 'Luminal'
+
+problemalias(luminal)
 
 
 for name in synonyms:
