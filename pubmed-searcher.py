@@ -100,7 +100,7 @@ for key, item in flat_dictionary.items():
 
 
         # Prints paper title, PMID and pubmed URL in a human-readable form
-        print("[Pubmed] " + "[{}] ".format(drugname) + title + " URL: " + pubmed_url  + " DOI: " + doi)
+        #print("[Pubmed] " + "[{}] ".format(drugname) + title + " URL: " + pubmed_url  + " DOI: " + doi)
 
         datadict = {
 
