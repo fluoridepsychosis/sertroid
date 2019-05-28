@@ -19,8 +19,8 @@ for name in names:
 
     if name is not None:
 
-        if len(big_list) == 50:
-            break
+        #if len(big_list) == 50:
+        #    break
 
         #Creates entrez url from name
         entrez_url="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&reldate=10&retmax=1000&retmode=json&term=" + name
