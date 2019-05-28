@@ -68,7 +68,6 @@ for name in names:
 
     count = count + 1
 
-    #print (count)
 
 def problemalias(alias):
 
@@ -77,16 +76,20 @@ def problemalias(alias):
         synonyms.remove(alias)
 
 fault = 'Fault'
-
 problemalias(fault)
 
 mt45 = 'MT 45'
-
 problemalias(mt45)
 
 luminal = 'Luminal'
-
 problemalias(luminal)
+
+grainalcohol = 'Grain Alcohol'
+problemalias(grainalcohol)
+
+ethylether = 'Ethyl Ether'
+problemalias(ethylether)
+
 
 
 for name in synonyms:
