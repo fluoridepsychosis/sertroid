@@ -4,11 +4,8 @@ import time
 import threading
 import sys
 import os
-import re
 import config
 import json
-
-html_tag_matcher = re.compile('&lt;.*?&gt;')
 
 server = "irc.tripsit.me"
 nick = "sertroid"
@@ -60,7 +57,7 @@ def output():
                 doi = dict['doi']
                 title = dict['title']       
             
-                irc.send(bytes("PRIVMSG " + channel + " :[Pubmed] " + "[{}] ".format(alias) + html_tag_matcher.sub('', title) + " URL: " + url  + " DOI: " + doi + " \n", 'utf-8'))
+                irc.send(bytes("PRIVMSG " + channel + " :[Pubmed] " + "[{}] ".format(alias) + title + " URL: " + url  + " DOI: " + doi + " \n", 'utf-8'))
                 
                 time.sleep(1)
 

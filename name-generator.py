@@ -75,7 +75,7 @@ def problemalias(alias):
     while alias in synonyms:
 
         synonyms.remove(alias)
-
+""" 
 fault = 'Fault'
 
 problemalias(fault)
@@ -93,7 +93,7 @@ for name in synonyms:
     
     if len(name) < 4:
 
-        synonyms.remove(name)
+        synonyms.remove(name) """
 
 synonyms = json.dumps(synonyms) #converting python list to json
 

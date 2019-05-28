@@ -5,6 +5,9 @@ import sys
 import json
 import time
 import collections
+import re
+
+html_tag_matcher = re.compile('&lt;.*?&gt;')
 
 names_json = open('names.json')
 
@@ -16,11 +19,11 @@ for name in names:
 
     if name is not None:
 
-        #if len(big_list) == 100:
-        #    break
+        if len(big_list) == 50:
+            break
 
-        # Creates entrez url from name
-        entrez_url="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&reldate=1&retmax=1000&retmode=json&term=" + name
+        #Creates entrez url from name
+        entrez_url="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&reldate=10&retmax=1000&retmode=json&term=" + name
 
         entrez_response = requests.get(entrez_url) #returns json data
 
@@ -80,6 +83,8 @@ for key, item in flat_dictionary.items():
 
         title = summary_parsed_json["result"][pmid_key]["title"]
 
+        title = html_tag_matcher.sub('', title)
+
         article_ids = summary_parsed_json["result"][pmid_key]["articleids"]
 
         matched_article_id = None
@@ -107,6 +112,8 @@ for key, item in flat_dictionary.items():
         }
 
         data_json.append(datadict)
+
+        time.sleep(0.334)
 
     else:
          pass
