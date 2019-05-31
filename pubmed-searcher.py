@@ -12,59 +12,57 @@ names = json.load(names_json) # converting from json to python list
 
 big_list = [] # big chonk
 
-for name in names:
+for pair in names:
 
-    if name is not None:
+    for realname, name in pair.items():
 
-        #if len(big_list) == 100:
-        #    break
+        if name is not None:
 
-        # Creates entrez url from name
-        entrez_url="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&reldate=1&retmax=1000&retmode=json&term=" + name
+            if len(big_list) == 100:
+                break
 
-        entrez_response = requests.get(entrez_url) #returns json data
+            # Creates entrez url from name
+            entrez_url="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&reldate=1&retmax=1000&retmode=json&term=" + name
 
-        parsed_json = entrez_response.json() 
+            entrez_response = requests.get(entrez_url) #returns json data
 
-        key = "esearchresult"
+            parsed_json = entrez_response.json() 
 
-        drugname = name
+            key = "esearchresult"
 
-        drugdict = {}
+            drugname = name
 
-        if key in parsed_json: # sometimes the json doesn't have the key we want for no reason  ¯\_(ツ)_/¯, this checks if it exists
+            drugdict = {}
 
-            list_of_pmids = parsed_json["esearchresult"]["idlist"] # retrieves list of pmids from python list
+            if key in parsed_json: # sometimes the json doesn't have the key we want for no reason  ¯\_(ツ)_/¯, this checks if it exists
 
-            for item in list_of_pmids:
+                list_of_pmids = parsed_json["esearchresult"]["idlist"] # retrieves list of pmids from python list
 
-                drugdict[item] = drugname
+                for item in list_of_pmids:
 
-        else:
+                    drugdict[item] = {realname:drugname}
 
-            pass
+            else:
 
-        big_list.append(drugdict)
+                pass
 
-        time.sleep(0.334) # to avoid getting b& for flood
+            big_list.append(drugdict)
+
+            time.sleep(0.334) # to avoid getting b& for flood
+
+
 
 flat_dictionary = {}
 
 for dictionary in big_list:  #flattening list
     flat_dictionary.update(dictionary)
 
+print(flat_dictionary)
+
+
 data_json = []
 
 for key, item in flat_dictionary.items():
-
-    # This loop is basically the same as the first one except it uses entrez eutils summary instead of eutils search to find info from the PMID,
-    # then prints it to the output file
-
-    entrez_summary_url = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=" + key
-
-    entrez_summary_response = requests.get(entrez_summary_url)
-
-    summary_parsed_json = entrez_summary_response.json()
 
     pmid = str(key)
 
@@ -72,44 +70,53 @@ for key, item in flat_dictionary.items():
 
     pubmed_url = "https://www.ncbi.nlm.nih.gov/labs/pubmed/" + pmid
 
-    list_key = "result"
+    for realname, name in item.items():
 
-    drugname = item
+        
+        # This loop is basically the same as the first one except it uses entrez eutils summary instead of eutils search to find info from the PMID,
+        # then prints it to the output file
 
-    if list_key in summary_parsed_json:
+        entrez_summary_url = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=" + key
 
-        title = summary_parsed_json["result"][pmid_key]["title"]
+        entrez_summary_response = requests.get(entrez_summary_url)
 
-        article_ids = summary_parsed_json["result"][pmid_key]["articleids"]
+        summary_parsed_json = entrez_summary_response.json()
 
-        matched_article_id = None
+        list_key = "result"
 
-        for article_id in article_ids:
+        drugname = item
 
-            if article_id['idtype'] == "doi":
+        if list_key in summary_parsed_json:
 
-                matched_article_id = article_id
+            title = summary_parsed_json["result"][pmid_key]["title"]
 
-                doi = "https://doi.org/" + matched_article_id['value']
+            article_ids = summary_parsed_json["result"][pmid_key]["articleids"]
 
+            matched_article_id = None
 
+            for article_id in article_ids:
 
-        # Prints paper title, PMID and pubmed URL in a human-readable form
-        print("[Pubmed] " + "[{}] ".format(drugname) + title + " URL: " + pubmed_url  + " DOI: " + doi)
+                if article_id['idtype'] == "doi":
 
-        datadict = {
+                    matched_article_id = article_id
 
-            'alias':drugname,
-            'title':title,
-            'url':pubmed_url,
-            'doi':doi
+                    doi = "https://doi.org/" + matched_article_id['value']
 
-        }
+            datadict = {
+                
+                'title':title,
+                'url':pubmed_url,
+                'doi':doi,
+                'name':realname
 
-        data_json.append(datadict)
+            }
 
-    else:
-         pass
+            print(datadict)
+
+            data_json.append(datadict)
+
+        else:
+            pass
 
 
 data_json = json.dumps(data_json)

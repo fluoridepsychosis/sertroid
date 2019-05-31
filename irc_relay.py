@@ -54,13 +54,13 @@ def output():
             print(f)
 
             for dict in f:
-
-                alias = dict['alias']   
+   
                 url = dict['url']  
                 doi = dict['doi']
-                title = dict['title']       
+                title = dict['title']
+                name = dict['name']       
             
-                irc.send(bytes("PRIVMSG " + channel + " :[Pubmed] " + "[{}] ".format(alias) + html_tag_matcher.sub('', title) + " URL: " + url  + " DOI: " + doi + " \n", 'utf-8'))
+                irc.send(bytes("PRIVMSG " + channel + " :[Pubmed] " + "[{}] ".format(name) + html_tag_matcher.sub('', title) + " URL: " + url  + " DOI: " + doi + " \n", 'utf-8'))
                 
                 time.sleep(1)
 

@@ -32,9 +32,9 @@ for name in names:
 
     # This block of code 
 
-    #if count == 15: 
+    if count == 15: 
 
-    #   break
+       break
 
     result = pcp.get_compounds(name, 'name')
 
@@ -58,13 +58,15 @@ for name in names:
 
         if type(synonym) is str:
 
-            synonyms.append(synonym)
+            pass
 
         else:
 
             for key, value in synonym.items():
 
-                synonyms.append(value)
+                namedict = {name : value}
+
+                synonyms.append(namedict)
 
     count = count + 1
 
@@ -76,9 +78,9 @@ def problemalias(alias):
 
         synonyms.remove(alias)
 
-fault = 'Fault'
+#fault = 'Fault'
 
-problemalias(fault)
+#problemalias(fault)
 
 mt45 = 'MT 45'
 
