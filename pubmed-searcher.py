@@ -110,9 +110,7 @@ for key, item in flat_dictionary.items():
                 'name':realname
 
             }
-
-            print(datadict)
-
+            
             data_json.append(datadict)
 
         else:

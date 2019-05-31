@@ -6,6 +6,9 @@ import sys
 import os
 import config
 import json
+import re
+
+html_tag_matcher = re.compile('&lt;.*?&gt;')
 
 server = "irc.tripsit.me"
 nick = "sertroid"
@@ -47,8 +50,6 @@ def output():
     with open('pubmed_data.json') as f:
             
             f = json.load(f)
-
-            print(f)
 
             for dict in f:
    
