@@ -58,25 +58,25 @@ for name in names:
 
         if type(synonym) is str:
 
-            synonyms.append(synonym)
+            pass
 
         else:
 
             for key, value in synonym.items():
 
-                synonyms.append(value)
+                namedict = {name : value}
+
+                synonyms.append(namedict)
 
     count = count + 1
 
+    #print (count)
 
 def problemalias(alias):
 
     while alias in synonyms:
 
         synonyms.remove(alias)
-
-fault = 'Fault'
-problemalias(fault)
 
 mt45 = 'MT 45'
 problemalias(mt45)
@@ -96,7 +96,7 @@ for name in synonyms:
     
     if len(name) < 4:
 
-        synonyms.remove(name) 
+        synonyms.remove(name)
 
 synonyms = json.dumps(synonyms) #converting python list to json
 
