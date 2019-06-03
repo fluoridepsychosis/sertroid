@@ -115,6 +115,8 @@ for key, item in flat_dictionary.items():
 
         else:
             pass
+        
+        time.sleep(0.334)
 
 
 data_json = json.dumps(data_json)
