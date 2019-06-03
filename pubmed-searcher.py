@@ -18,8 +18,8 @@ for pair in names:
 
         if name is not None:
 
-            if len(big_list) == 100:
-                break
+            #if len(big_list) == 100:
+            #    break
 
             # Creates entrez url from name
             entrez_url="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&reldate=1&retmax=1000&retmode=json&term=" + name
@@ -56,9 +56,6 @@ flat_dictionary = {}
 
 for dictionary in big_list:  #flattening list
     flat_dictionary.update(dictionary)
-
-print(flat_dictionary)
-
 
 data_json = []
 

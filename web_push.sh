@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-cp pubmed_output.txt /var/www/html/sertroid/
+cp pubmed_data.json /var/www/html/sertroid/
