@@ -5,6 +5,9 @@ import sys
 import json
 import time
 import collections
+import re
+
+html_tag_matcher = re.compile('&lt;.*?&gt;')
 
 names_json = open('names.json')
 
@@ -86,6 +89,8 @@ for key, item in flat_dictionary.items():
         if list_key in summary_parsed_json:
 
             title = summary_parsed_json["result"][pmid_key]["title"]
+            
+            title =  html_tag_matcher.sub('', title)
 
             article_ids = summary_parsed_json["result"][pmid_key]["articleids"]
 
