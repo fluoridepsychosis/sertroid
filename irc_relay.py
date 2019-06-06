@@ -6,9 +6,6 @@ import sys
 import os
 import config
 import json
-import re
-
-html_tag_matcher = re.compile('&lt;.*?&gt;')
 
 server = "irc.tripsit.me"
 nick = "sertroid"
@@ -58,7 +55,7 @@ def output():
                 title = dict['title']
                 name = dict['name']       
             
-                irc.send(bytes("PRIVMSG " + channel + " :[Pubmed] " + "[{}] ".format(name) + html_tag_matcher.sub('', title) + " URL: " + url  + " DOI: " + doi + " \n", 'utf-8'))
+                irc.send(bytes("PRIVMSG " + channel + " :[Pubmed] " + "[{}] ".format(name) + title + " URL: " + url  + " DOI: " + doi + " \n", 'utf-8'))
                 
                 time.sleep(1)
 
