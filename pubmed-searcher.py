@@ -20,7 +20,7 @@ for pair in names:
             #if len(big_list) == 100:
             #    break
             # Creates entrez url from name
-            entrez_url="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&reldate=1&retmax=1000&retmode=json&term=" + name
+            entrez_url="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&reldate=5&retmax=1000&retmode=json&term=" + name
             entrez_response = requests.get(entrez_url) #returns json data
             parsed_json = entrez_response.json() 
             key = "esearchresult"
