@@ -5,6 +5,10 @@ import sys
 import json
 import time
 import collections
+import re
+
+html_tag_matcher = re.compile('&lt;.*?&gt;')
+
 
 names_json = open('names.json')
 names = json.load(names_json) # converting from json to python list
