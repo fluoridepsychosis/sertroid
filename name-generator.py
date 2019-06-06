@@ -90,6 +90,26 @@ problemalias(grainalcohol)
 ethylether = 'Ethyl Ether'
 problemalias(ethylether)
 
+alcohol = 'alcohol'
+problemalias(alcohol)
+
+dramamine = 'dramamine'
+problemalias(dramamine)
+
+diethylether = 'diethyl-ether'
+problemalias(diethylether)
+
+carisoprodol = 'carisoprodol'
+problemalias(carisoprodol)
+
+moclobemide = 'moclobemide'
+problemalias(moclobemide)
+
+aspirin = 'aspirin'
+problemalias(aspirin)
+
+
+
 
 
 for name in synonyms:
