@@ -8,8 +8,6 @@ import collections
 import re
 
 html_tag_matcher = re.compile('&lt;.*?&gt;')
-
-
 names_json = open('names.json')
 names = json.load(names_json) # converting from json to python list
 
@@ -35,7 +33,7 @@ for pair in names:
                 pass
 
             big_list.append(drugdict)
-            time.sleep(0.334) # to avoid getting b& for flood
+            time.sleep(0.4) # to avoid getting b& for flood
 
 flat_dictionary = {}
 for dictionary in big_list:  #flattening list
@@ -68,20 +66,17 @@ for key, item in flat_dictionary.items():
                     matched_article_id = article_id
                     doi = "https://doi.org/" + matched_article_id['value']
 
-            datadict = {
-                
+            datadict = {       
                 'title':title,
                 'url':pubmed_url,
                 'doi':doi,
                 'name':realname
-
             }
-            
             data_json.append(datadict)
 
         else:
             pass 
-        time.sleep(0.334)
+        time.sleep(0.4)
 
 
 data_json = json.dumps(data_json)
