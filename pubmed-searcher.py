@@ -66,13 +66,13 @@ for key, item in flat_dictionary.items():
                     matched_article_id = article_id
                     doi = "https://doi.org/" + matched_article_id['value']
 
-            datadict = {       
-                'title':title,
-                'url':pubmed_url,
-                'doi':doi,
-                'name':realname
-            }
-            data_json.append(datadict)
+                    datadict = {       
+                        'title':title,
+                        'url':pubmed_url,
+                        'doi':doi,
+                        'name':realname
+                    }
+                    data_json.append(datadict)
 
         else:
             pass 
