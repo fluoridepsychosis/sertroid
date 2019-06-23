@@ -8,7 +8,7 @@ import collections
 import re
 
 html_tag_matcher = re.compile('&lt;.*?&gt;')
-names_json = open('names.json')
+names_json = open('/home/user/sertroid/names.json')
 names = json.load(names_json) # converting from json to python list
 
 big_list = [] # big chonk
@@ -18,7 +18,7 @@ for pair in names:
             #if len(big_list) == 100:
             #    break
             # Creates entrez url from name
-            entrez_url="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&reldate=5&retmax=1000&retmode=json&term=" + name
+            entrez_url="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&reldate=2&retmax=1000&retmode=json&term=" + name
             entrez_response = requests.get(entrez_url) #returns json data
             parsed_json = entrez_response.json() 
             key = "esearchresult"
@@ -80,6 +80,6 @@ for key, item in flat_dictionary.items():
 
 
 data_json = json.dumps(data_json)
-with open("pubmed_data.json", "w") as write_file:
+with open("/home/user/sertroid/pubmed_data.json", "w") as write_file:
     write_file.write(data_json)
 names_json.close()

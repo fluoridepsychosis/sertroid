@@ -31,7 +31,7 @@ def irc_text():
 
 
 def output():
-    with open('pubmed_data.json') as f:           
+    with open('/home/user/sertroid/pubmed_data.json') as f:           
             f = json.load(f)
             for dict in f:  
                 url = dict['url']  

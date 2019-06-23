@@ -8,7 +8,7 @@ import collections
 import pubchempy as pcp 
 import re
 
-sys.stdout = open('names.json','wt') # this script will output to a file for further processing
+sys.stdout = open('/home/user/sertroid/names.json','wt') # this script will output to a file for further processing
 response = requests.get("http://tripbot.tripsit.me/api/tripsit/getAllDrugNames") #getting druglist from tripsit api
 response = response.json() # parsing druglist into python list
 response = response['data'] #removing outer list
